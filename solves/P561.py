@@ -1,0 +1,1 @@
+print(sum(10**12>>i for i in range(2, 42))*(904961+1))
