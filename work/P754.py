@@ -23,4 +23,4 @@ def G(n):
         rv %= 1_000_000_007
         if i % 257 == 0: print((i/n)*100)
     return rv % 1_000_000_007
-print(G(10**8))
+print(G(10))

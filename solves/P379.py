@@ -22,20 +22,12 @@ def isqrt(x):
         a,b = c,a
     return b
 
-m2 = dict()
-def o3H(n):
-    if n in m2: return m2[n]
-    s = isqrt(n)*(isqrt(n)+1) // 2
-    for z in range(1, isqrt(n) + 1):
-        if n//z != z:
-            s += (n//z - n//(z+1))*(z)
-    return s
 
 def speedyf(n):
     msieve = mob(isqrt(n))
     s = 0
     for k in range(1, isqrt(n) + 1):
-        s += msieve[k]*o3H(n//(k*k))
+        s += msieve[k]*H(n//k//k)
     return s
 
 memo = dict()
@@ -46,7 +38,6 @@ def H(n):
         s += n//i
     s -= (isqrt(n)**2)//2
     return s
-
 
 def fasterg(n):
     s = 0
@@ -59,4 +50,5 @@ def fasterg(n):
 
 
 print(fasterg(10**12) + 10**12 // 4)
-print(fasterg(10**12))
+# print(fastergnotrick(10**5))
+# print(sqrttricknoalt(10**5))
