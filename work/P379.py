@@ -1,5 +1,5 @@
 from math import gcd
-import time
+
 def mob(n):
     primes = [1]*(n+1)
     mobius = [1]*(n+1)
@@ -38,7 +38,6 @@ def speedyf(n):
     for k in range(1, isqrt(n) + 1):
         s += msieve[k]*H(n//(k*k))
     return s
-
 
 def fasterg(n):
     s = 0
