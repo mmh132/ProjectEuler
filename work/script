@@ -1,0 +1,23 @@
+from math import isqrt
+
+def isprime(n):
+    for i in range(2, isqrt(n) + 1):
+        if n%i == 0:
+            return False
+    return True
+
+def vp(n, p):
+    x, k = 0,p
+    while k <= n:
+        x += n//k
+        k*=p
+    return x
+
+def divfac(n):
+    rv = 1
+    for i in range(2, n+1):
+        if isprime(i):
+            rv *= vp(n, i)+1
+    return rv
+
+print(divfac(70))

@@ -91,5 +91,3 @@ class fraction:
         self.n = -1*self.n
         return self
     
-
-print(fraction(1655, 1090000000) < fraction(123, 10000032))
