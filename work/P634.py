@@ -11,6 +11,8 @@ def solve(n):
     print(sqfree)
     rv = 0
     for i in range(2, len(sqfree)):
-        rv += sqfree[i]*int(sqrt(n//(i*i*i)))
+        if sqfree[i]:
+            b = i*i*i
+            rv += int(sqrt(n/b) - 1)
     return rv
 print(solve(3*10**6))
