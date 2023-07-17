@@ -1,13 +1,13 @@
 from math import isqrt
 cache = dict()
-def totientsum(n):
+def totientsumslow(n):
     if n in cache: return cache[n]
     rv = n*(n+1) >> 1
     for g in range(2, isqrt(n) + 1):
-        rv -= totientsum(n//g)
+        rv -= totientsumslow(n//g)
     for z in range(1, isqrt(n) + 1):
         if n//z != z:
-            rv -= (n//z - n//(z+1))*totientsum(z)
+            rv -= (n//z - n//(z+1))*totientsumslow(z)
     cache[n] = rv
     return rv
 
@@ -46,5 +46,5 @@ def totientsumfast(n):
 
     return T[n]
 
-print(totientsumfast(10**12))
+print(totientsumfast(10**11))
 

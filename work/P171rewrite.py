@@ -43,3 +43,4 @@ for i in range(len(die)):
     if sum(die[i]) in squares:
         tot += sumperms(die[i])
 print(tot)
+print(len(die))
