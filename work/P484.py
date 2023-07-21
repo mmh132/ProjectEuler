@@ -26,3 +26,7 @@ print(bfderivative(60))
 
 for i in range(1, 100):
     print(i, bfderivative(i), gcd(i, bfderivative(i)))
+
+a = bfderivative(32)
+b = bfderivative(5)
+print(bfderivative(5*2**5))

@@ -39,12 +39,9 @@ def finalsum(n):
 
     for i in range(1, len(g)):
         G[i] += G[i-1]
-
-
     
     for i in range(1, isqrt(n) + 1):
         rv += g[i] * sumdiv(n//(i*i))
-
 
     return rv - n*(n+1)//2
 

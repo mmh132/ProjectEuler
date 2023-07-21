@@ -56,8 +56,7 @@ def final(n):
     return rv//2
 
 
-x = final(99999999019)
+x = final(999999)
 
 print(x)
 print(x % 999999017)
-print(final(100))
