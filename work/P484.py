@@ -27,6 +27,12 @@ print(bfderivative(60))
 for i in range(1, 100):
     print(i, bfderivative(i), gcd(i, bfderivative(i)))
 
-a = bfderivative(32)
-b = bfderivative(5)
-print(bfderivative(5*2**5))
+a = 2*2*2*2*2*2*3*3*3*7
+print(a, bfderivative(a), gcd(a, bfderivative(a)))
+#theory: gcd(k, k') is a multiplicative function with
+#f(p^k) = p^k - (0 if p|k else 1)
+
+x = 0
+for i in range(10000+1):
+    x += gcd(i, bfderivative(i))
+print(x)
