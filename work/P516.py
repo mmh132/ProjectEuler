@@ -1,37 +1,38 @@
-from PrimeUtil import MillerRabin64
-
-def buildhammings(n):
-    hammings = set()
-    p2, p3, p5 = 0,0,0
-    while (2**p2)*(3**p3)*(5**p5) <= n:
-        while (2**p2)*(3**p3)*(5**p5) <= n:
-            while (2**p2)*(3**p3)*(5**p5) <= n:
-                hammings.add((2**p2)*(3**p3)*(5**p5))
-                p5 += 1
-            p5 = 0
-            p3 += 1
-        p3 = 0
-        p2 += 1
-    return len(hammings)
+from PrimeUtil import MillerRabin64 as mr
 
 N = 10**12
-ret = [0]
-hams = buildhammings(N)
-niceprimes = set()
-for i in hams:
-    if MillerRabin64(i+1):
-        niceprimes.add(i+1)
-
-founds = []
-def recfind(sidx, prod):
-    if prod<N:
-        founds.append(prod)
-    else:
+smooth = list()
+all = [2,3,5]
+def dfs(n,i):
+    if i == 3: 
+        smooth.append(n)
         return
-    for i in range(sidx, 25):
-        recfind(i+1, prod*niceprimes[i])
-    return 
+    while n <= N:
+        dfs(n, i+1)
+        n*=all[i]
+dfs(1,0)
+smooth.sort()
+ps = []
+for i in smooth:
+    if mr(i+1) and i > 5:
+        ps.append(i+1)
+all = []
+def dfs2(n,i):
+    if n > N:
+        return
+    if i == len(ps):
+        all.append(n)
+        return
+    dfs2(n, i+1)
+    dfs2(n*ps[i], i+1)
+    return
+dfs2(1,0)
+t = 0
+for i in all:
+    for k in smooth:
+        if i*k <= N:
+            t += i*k
+        else:
+            break
+print(t)
 
-def recrun2(n):
-    
-            
