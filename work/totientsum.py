@@ -46,8 +46,8 @@ def totientsumfast(n):
 
     return T[n]
 
-print(totientsumfast(10000))
+# print(totientsumfast(10000))
 
-print(totientsumslow(10000))
+# print(totientsumslow(10000))
 
-print(pow(2, (10**11 + 1)*(10**11 + 1), 10**8))
+# print(pow(2, (10**11 + 1)*(10**11 + 1), 10**8))

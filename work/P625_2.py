@@ -17,4 +17,4 @@ def G(n):
         s += i*totientsum(n//i)
     return s
 
-print(G(10**10) % 998244353)
+print(G(10**2) % 998244353)
