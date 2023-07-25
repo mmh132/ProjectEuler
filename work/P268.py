@@ -1,8 +1,5 @@
-from math import sqrt
-from math import factorial
-def choose(n, k):
-    return factorial(n)//(factorial(n-k)*factorial(k))
-    
+from math import sqrt, factorial, comb as choose
+
 def isprime(n):
     for i in range(2, int(sqrt(n))+1):
         if n%i == 0: return False
@@ -13,7 +10,7 @@ def mul(l):
     return rv
 primes = [i for i in range(2, 101) if isprime(i)]
 print(primes)
-cap = 10**16
+cap = 10**7
 founds = []
 def recfind(nwant, sidx, prod):
     if nwant == 0:
