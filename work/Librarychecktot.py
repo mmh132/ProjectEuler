@@ -18,7 +18,6 @@ def lsieve(n):
 def sumtot(n, mod):
     y = int(0.25*n**(2/3))
     tots = lsieve(y)
-    print("here")
     T = dict()
     #compute summatory totient from backtracking
     for v in range(1, isqrt(n) + 1):

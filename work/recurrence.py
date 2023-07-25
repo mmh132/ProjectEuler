@@ -28,4 +28,14 @@ def mul(a, b, m):
 print(mul([0, 1], [0, 1], [1, 1]))
 
 def BM(s, mod):
+    #c is recurrence, pc is best previous recurrence
+    c, pc = list(), list()
+    #f is index of failure
+    f = -1
+    for i in range(len(s)):
+        #evaluate c(i), evaluate delta, if its zero then c(i) is right
+        delta = s[i]
+        for k in range(1, len(c) + 1):
+            delta -= c[k-1]*s[i-k]
+
     pass

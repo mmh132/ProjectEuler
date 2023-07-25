@@ -35,6 +35,7 @@ twosub = 0
 fivsub = 0
 tot = 0
 for x in range(0,number+1):
+    print(x)
     for y in range(number+1-x):
         twosub = facstorer2[x] + facstorer2[y] + facstorer2[number-x-y]
         fivsub = facstorer5[x] + facstorer5[y] + facstorer5[number-x-y]
