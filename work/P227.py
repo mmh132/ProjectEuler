@@ -1,13 +1,20 @@
-def f(d, p, s):
-    if d > 5: d = 10-d
-    if d < 0: d = abs(d)
-    if d == 0: return s*p
-    if p < 10**-5: return 0
-    rv = 0
-    rv += f(d, p*0.5, s+1)
-    rv += f(d-1, p*(2/9), s+1)
-    rv += f(d+1, p*(2/9), s+1)
-    rv += f(d-2, p*(1/36), s+1)
-    rv += f(d+2, p*(1/36), s+1)
-    return rv
-print(f(50, 1, 0))
+import sys
+sys.setrecursionlimit(100000)
+N = 10
+LIM = 10000
+m = dict()
+def dp(p, d):
+    p = min(p, N-p)
+    if p == 0: return 0
+    if d > LIM: return 0
+    if p in m: return m[p]
+    x = 0
+    x += (1/36)*(1+dp(p-2, d+1))
+    x += (2/9)*(1+dp(p-1, d+1))
+    x += (1/2)*(1+dp(p, d+1))
+    x += (2/9)*(1+dp(p+1, d+1))
+    x += (1/36)*(1+dp(p+2, d+1))
+    m[p] = x
+    return x
+
+print(dp(5, 0))

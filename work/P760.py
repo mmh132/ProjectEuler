@@ -20,6 +20,4 @@ def G(n):
             t += g(j, i-j)
     return t
 
-print(G(10))
-print(6&4)
-print(6^4)
+print(bin(g(3,6)))
