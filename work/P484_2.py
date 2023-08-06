@@ -1,7 +1,9 @@
 import sys
 from math import isqrt
+import time
 sys.setrecursionlimit(10000000)
 N = 5*10**15
+s = time.time()
 
 def sieve(n):
     p = [1]*(n+1)
@@ -29,7 +31,7 @@ def h(p, e):
     mem[(p,e)] = x
     return x
 
-def solve():
+def solve(N):
     rv = [0]
     def dfs(n, hn, p):
         #print(n, hn, p)
@@ -48,4 +50,5 @@ def solve():
     dfs(1,1,0)
     return rv[0]-1
 
-print(solve())
+print(solve(N))
+print(time.time()-s)

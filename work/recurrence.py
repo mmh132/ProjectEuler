@@ -9,10 +9,19 @@
 def solve(c, s, k, mod):
     #c is our recurrence, s is terms, k is term number
     n = len(c)
-    
-    pass
+    a = [c[0]] if n == 1 else [0,1]
+    x = 1
+    while k > 0:
+        if k%2:
+            x = mul(x,a,c,n)
+        a = mul(a,a,c,n)
+        k//=2
+    rv = 0
+    for i in range(n):
+        rv += x[i]*s[i]
+    return rv
 
-def mul(a, b, m):
+def mul(a, b, m, n):
     # m is polynomial modulus
     rv = [0]*(len(a) + len(b) - 1)
     for i in range(len(a)):
@@ -21,11 +30,9 @@ def mul(a, b, m):
     for i in range(len(rv) - 1, len(m)-1, -1):
         for j in range(len(m)-1, -1, -1):
             rv[i-j-1] += rv[i]*m[j]
-    while rv[-1] == 0:
-        rv.pop(-1)
-    return rv
+    return rv[min(len(rv), n):]
 
-print(mul([0, 1], [0, 1], [1, 1]))
+print(solve)
 
 def BM(s, mod):
     #c is recurrence, pc is best previous recurrence

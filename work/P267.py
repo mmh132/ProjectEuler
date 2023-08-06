@@ -13,3 +13,16 @@ def rb(depth, curpow, curnum):
 magicnum = rb(15,1,0)
 print(magicnum)
 print(bt(magicnum))
+
+from math import log10, comb
+c = [log10(comb(1000, n)) for n in range(1001)]
+
+def bt(f):
+    w = 0
+    for h in range(1001):
+        x = h*log10(1+2*f) + (1000-h)*log10(1-f)
+        if x >= 9: w += c[h]
+    return w
+
+def ter(a,b,c):
+    

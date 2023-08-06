@@ -25,19 +25,66 @@ def bfFalt(x,y):
             new = [(y//i)*(i+1), (x//(i+1))*i]
             out.append(tuple(sorted(new)))
             print(i, i+1, out[-1], y)
-    print(x,y,out)
+    if len(set(out)) < len(out):
+        print(x,y,out)
     rv = len(out)
     if tuple(sorted([x,y])) in out:
         rv -= 1
     return rv
 
-# def bfG(n):
-#     rv = 0
-#     for x in range(1, n+1):
-#         for y in range(x, n+1):
-#             rv += bfF(x,y)
+#check to see if it works if we only allow strictly smaller fraction for the first
+#nope, counterexample is 5,6
+# def bfFalt2(x,y):
+#     out = set()
+#     for i in range(1, max(x,y)):
+#         if y%i == 0 and x%(i+1) == 0:
+#             new = [(y//i)*(i+1), (x//(i+1))*i]
+#             out.add(tuple(sorted(new)))
+#     print(x,y,out)
+#     rv = len(out)
+#     if tuple(sorted([x,y])) in out:
+#         rv -= 1
 #     return rv
 
-# print(bfG(1000))
+def bfG(n):
+    rv = 0
+    for x in range(1, n+1):
+        for y in range(x, n+1):
+            rv += bfF(x,y)
+    return rv
+x,y = 5,6
+#print(bfG(10))
+print(bfF(x,y))
+print(bfFalt2(x,y))
 
-bfFalt(9,8)
+
+
+# def fast(x,y):
+#     rv = 0
+#     if abs(x-y) == 1:
+#         rv -= 1
+#     if x > y:
+#         x,y = y,x
+#     for i in range(1, x+1):
+#         if x%i == 0:
+#             if y%(i+1) == 0:
+#                 if abs((i+1)*x//i-i*y//(i+1)) == 1:
+#                     rv += 0.5
+#                 else:
+#                     rv += 1
+#         if y%i == 0:
+#             if x%(i+1) == 0:
+#                 if abs((i+1)*y//i-i*x//(i+1)) == 1:
+#                     rv += 0.5
+#                 else:
+#                     rv += 1
+#     return rv
+
+# def fastG(n):
+#     rv = 0
+#     for i in range(1, n+1):
+#         for j in range(i, n+1):
+#             rv += fast(i,j)
+#     return rv
+
+# print(fastG(10))

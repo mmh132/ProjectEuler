@@ -35,8 +35,6 @@ def finalsum(n):
     g = mobius(isqrt(n))
     G = g.copy()
 
-    div = lsievediv(isqrt(n))
-
     for i in range(1, len(g)):
         G[i] += G[i-1]
     
