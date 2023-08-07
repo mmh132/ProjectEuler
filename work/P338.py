@@ -55,36 +55,7 @@ def bfG(n):
 x,y = 5,6
 #print(bfG(10))
 print(bfF(x,y))
-print(bfFalt2(x,y))
 
 
 
-# def fast(x,y):
-#     rv = 0
-#     if abs(x-y) == 1:
-#         rv -= 1
-#     if x > y:
-#         x,y = y,x
-#     for i in range(1, x+1):
-#         if x%i == 0:
-#             if y%(i+1) == 0:
-#                 if abs((i+1)*x//i-i*y//(i+1)) == 1:
-#                     rv += 0.5
-#                 else:
-#                     rv += 1
-#         if y%i == 0:
-#             if x%(i+1) == 0:
-#                 if abs((i+1)*y//i-i*x//(i+1)) == 1:
-#                     rv += 0.5
-#                 else:
-#                     rv += 1
-#     return rv
 
-# def fastG(n):
-#     rv = 0
-#     for i in range(1, n+1):
-#         for j in range(i, n+1):
-#             rv += fast(i,j)
-#     return rv
-
-# print(fastG(10))

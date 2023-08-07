@@ -58,7 +58,6 @@ def s2(n):
         s += pi(l)
         if l >= p1:
             s -= 1
-
     return s
 
 def s3(n):

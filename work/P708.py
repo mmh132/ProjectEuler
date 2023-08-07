@@ -9,7 +9,6 @@ def d(n):
         rv += 2*(n//i)
     return rv - isqrt(n)*isqrt(n)
 
-
 def sieve(n):
     p = [1]*(n+1)
     for i in range(2, n+1):

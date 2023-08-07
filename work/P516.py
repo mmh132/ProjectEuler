@@ -1,5 +1,4 @@
 from PrimeUtil import MillerRabin64 as mr
-
 N = 10**12
 smooth = list()
 all = [2,3,5]
@@ -34,5 +33,5 @@ for i in all:
             t += i*k
         else:
             break
-print(t)
+print(t%pow(2,32))
 
