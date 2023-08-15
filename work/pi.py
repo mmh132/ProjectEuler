@@ -13,7 +13,6 @@ def FIdec(n):
         yield n//la
         i = la + 1
 
-
 def pi(n):
     S = dict()
     for i in FIinc(n):

@@ -3,7 +3,7 @@ def bf(n, k):
     for i in range(1, n+1):
         x += pow(i, k)%n
     return x/n
-print(bf(1234, 7))
+#print(bf(1234, 7))
 
 def bfS(n):
     x = 0
@@ -20,5 +20,15 @@ def altS(n):
             for nn in range(i, n+1):
                 x += pow(i,k,nn)/nn
     return x
-print(bfS(10))
-print(altS(10))
+# print(bfS(10))
+# print(altS(10))
+
+
+def tv(n):
+    print([[i**k % n for i in range(1, n)] + ["pow =" + str(k)] for k in range(1, 12)])
+
+for i in range(5, 14):
+    print(str(i))
+    print(tv(i))
+    print(" ")
+    

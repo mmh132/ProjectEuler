@@ -22,5 +22,6 @@ def f(pts):
         a = angs[p1]
         target = a + 180
         l = bs(0, len(angs), target)
+        u = p1 + 1
 
         

@@ -52,14 +52,14 @@ def product(polya, polyb):
 
     return [round(i.real) for i in rv][:rsize - 1 - size]
 
-def pow(polya, e):
-    out = polya
-    while e > 0:
-        print(out)
-        if e&1:
-            out = product(out, polya)
-        out = product(out, out)
-        e//=2
-    return out
+# def pow(polya, e):
+#     out = polya
+#     while e > 0:
+#         print(out)
+#         if e&1:
+#             out = product(out, polya)
+#         out = product(out, out)
+#         e//=2
+#     return out
 
-print(pow([1,1], 4))
+# print(pow([1,1], 4))

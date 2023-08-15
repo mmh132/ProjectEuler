@@ -49,6 +49,7 @@ def fasterg(n):
             s += (n//z - n//(z+1))*speedyf(z)
     return s
 
+print(fasterg(1000))
 
 print(fasterg(10**12))
 
