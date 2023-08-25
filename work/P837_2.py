@@ -5,16 +5,17 @@ def f(a, b, m):
     for ab in range(3, min(a, b)+1, 3):
         aa = (a-ab)//2
         bb = (b-ab)//2
-        if (a-ab)%2 == 1 or (b-ab)%2 == 1: continue
-        if aa > 0 or bb > 0:
-            rv += 2*comb(aa + bb, aa)*comb(2*ab + aa + bb - 1, aa + bb - 1)
-            rv %= m
-        else: 
-            rv += 2
-            rv %= m
+        if (a-ab)%2 == 0 and (b-ab)%2 == 0: 
+            if aa > 0 or bb > 0:
+                rv += 2*comb(aa + bb, aa)*comb(2*ab + aa + bb, 2*ab)
+                rv %= m
+            else: 
+                rv += 2
+                rv %= m
     return rv
 print(f(11,11,1234567891))
 print(f(15,15,1234567891))
+print(f(123,321,1234567891))
 
 
 MOD = 1234567891
@@ -31,3 +32,4 @@ def bruteforce(a,b,c,m,n):
 
 print(bruteforce(1,2,3,11,11))
 print(bruteforce(1,2,3,15,15))
+print(bruteforce(1,2,3,123,321))
