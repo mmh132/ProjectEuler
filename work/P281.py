@@ -13,4 +13,4 @@ def solve(m,n):
         rv += mrot(m, gcd(n,k))
     return rv//m//n
 
-print(solve(3,5))
+print(solve(4,4))
