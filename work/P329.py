@@ -7,7 +7,7 @@ def isprime(n):
     for i in range(2, int(sqrt(n))+1):
         if n%i == 0: return False
     return True
-prime = [1, 1] + [isprime(i) for i in range(2,501)]
+prime = [False, False] + [isprime(i) for i in range(2,501)]
 
 
 def dp(pos, turn, isval):
