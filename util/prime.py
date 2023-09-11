@@ -43,8 +43,6 @@ def lucy(n):
             if v < p*p: break
             S[v] -= (S[v//p] - S[p-1])
     return S[n]
-
-#print(lucyfen(10**9)[10**9])              
     
 def lucyfen2(n):
     y = int(n**(2/3))
@@ -93,14 +91,59 @@ def lucyfen2(n):
     
     return S[n]
 
-s = time.time()
-print(lucy(10**9))
-print(time.time() - s)
-s = time.time()
-print(lucyfen2(10**9)) 
-print(time.time() - s)
+def pi_lmo(n):
+    v = isqrt(n)
+    s = (v+1) // 2
+    smalls = [(i + 1) // 2 for i in range(v+1)]
+    roughs = [2 * i + 1 for i in range(s)]
+    larges = [(n // ( 2 * i + 1) + 1) // 2 for i in range(s)]
+    skip = [0] * (v+1)
+
+    pc = 0
+    for p in range(3, v+1, 2):
+        if skip[p]: continue
+        if p * p * p * p > n: break
+        skip[p] = 1
+        for i in range(p * p, v + 1, 2 * p):
+            skip[i] = 1
+        ns = 0
+        for k in range(s):
+            i = roughs[k]
+            if skip[i]: continue
+            if i*p <= v:
+                x = larges[smalls[i*p] - pc]
+            else:
+                x = smalls[n//(i*p)]
+            larges[ns] = larges[k] + pc - x
+            roughs[ns] = i
+            ns += 1
+        for j in range(v // p, p - 1, -1):
+            c = smalls[j] - pc
+            for i in range(v, j*p-1, -1):
+                smalls[i] -= c
+
+    rv = larges[0] + (s + 2 * (pc-1))
+    for l in range(1, s):
+        q = roughs[l]
+        m = n//q
+        e = smalls[m//q] - pc
+        if e<=l:
+            break
+        t = 0
+        for r in roughs[l + 1 : e + 1]:
+            t += smalls[m // r]
+        rv += t - (e - l) * (pc + l - 1)
+    return rv
 
 
+def timef(f, inp):
+    s = time.time()
+    rv = f(inp)
+    return (rv, time.time()-s)
+
+print(timef(lucy, 10**9))
+print(timef(pi_lmo, 10**9))
+print(timef(lucyfen2, 10**9))
             
     
     
