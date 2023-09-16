@@ -1,4 +1,3 @@
-from math import isqrt
 def G(n):
     mob = [1]*(n+1)
     prime = [1]*(n+1)
@@ -18,7 +17,6 @@ def G(n):
         for k in range(d, n+1, d):
             ww[k] += mob[d]*(n//d - k//d)
 
-    
     rv = 1
     for i in range(2, n+1):
         rv *= pow(i, ww[i], 10**9 + 7)
