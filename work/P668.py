@@ -1,22 +1,75 @@
 from math import isqrt
-def sieve(n):
-    p = [1]*(n+1)
-    for i in range(2, n+1):
-        if not p[i]: continue
-        for k in range(i+i, n+1, i):
-            p[k] = 0
-    return p
+from functools import cache as ccc
+import sys
+from util.prime import lucy as lucy
+sys.setrecursionlimit(10000)
 
-psieve = sieve(100)
-def check(n):
-    err = 0 if isqrt(n)**2 == n else 1
-    for i in range(isqrt(n) + err, n+1):
-        if n%i == 0 and psieve[i]:
-            return False
-    return True
-t = 1
-for i in range(2, 101):
-    if check(i):
-        print(i)
-        t += 1
-print(str(t) + " total")
+def f(n):
+    rt = isqrt(n)
+    isp = [1]*(rt+1)
+    for i in range(2, isqrt(rt) + 1):
+        if not isp[i]: continue
+        for k in range(i+i, rt+1, i):
+            isp[k] = 0
+    primes = []
+    for i in range(2,rt+1):
+        if isp[i]: primes.append(i)
+    print(primes)
+    cache = dict()
+    def smooth(n, k):
+        if k == 0:
+            return len(bin(n)) - 2
+        if (n,k) in cache: return cache[(n,k)]
+        p = primes[k]
+        if p > n: return n
+        x = 1
+        rr = 0
+        while x<=n:
+            rr += smooth(n//x, k-1)
+            x*=p
+        cache[(n,k)] = rr
+        return rr
+
+    out = len(bin(n)) - 4
+    for i,p in enumerate(primes):
+        if p == 2: continue
+        out += smooth(n//p, i) - smooth(p, i)
+        print(p)
+        todel = []
+        for tt in cache:
+            if tt[1] - i < -1:
+                todel.append(tt)
+        for tt in todel:
+            del cache[tt]
+        del todel
+    return out
+
+print(f(10**2))
+
+def squarefree(n):
+    rt = isqrt(n)
+    m = [1]*(rt+1)
+    p = [1]*(rt+1)
+    for i in range(2, rt+1):
+        if not p[i]: continue
+        m[i] = -1
+        for k in range(i+i, rt+1, i):
+            m[k]*=-1
+            p[k] = 0
+        for k in range(i*i, rt+1, i*i):
+            m[k] = 0
+    rv = 0
+    for i in range(1, rt+1):
+        rv += m[i]*(n//i//i)
+    return rv
+
+def ff(n):
+    rt = isqrt(n)
+    rv = lucy(rt)
+    
+    
+
+
+
+            
+   
