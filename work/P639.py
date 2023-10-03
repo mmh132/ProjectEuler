@@ -39,10 +39,9 @@ def S(n, k):
     for i in range(2, isqrt(n)+1):
         spow[i] = (spow[i-1] + pow(i,k,MOD)) % MOD
     print("done1")
-    print(spow)
+    #print(spow)
     #use closed form for harder to compute values
     for i in FIdec(n):
-        print(i)
         if i < isqrt(n)+1:
             break
         inn = 0
@@ -50,10 +49,8 @@ def S(n, k):
             for jj in range(ii):
                 inn += pow(-1, jj)*pow(ii-jj, k)*comb(i+k-ii+1, i-ii)*comb(k+1, jj)
                 inn %= MOD
-        print(inn)
         spow[i] = inn
-    print("done2")
-    print(spow)
+    #print(spow)
     #do powerful number sieving
     stk = [(1,1,0)]
     primes = []
@@ -62,17 +59,16 @@ def S(n, k):
     for i in range(2, isqrt(rt) + 1):
         if not sieve[i]:
             continue
-        for k in range(i+i, rt+1, i):
-            sieve[k] = 0
+        for z in range(i+i, rt+1, i):
+            sieve[z] = 0
     for i in range(2, len(sieve)):
         if sieve[i] == 1:
             primes.append(i)
-    @ccc
     def h(p, e):
         out = 0
         if e > 1:
-            out += -1*(pow(p, k) - 1)*pow(p,k)
-        return 1 if e == 0 else out % MOD
+            out -= (pow(p, k) - 1)*pow(p,k)
+        return 1 if e == 0 else out%MOD
     def powerfulnumberext(n):
         while stk:
             c = stk.pop(0)
@@ -80,16 +76,16 @@ def S(n, k):
             if i == len(primes): 
                 yield (nn, hn)
                 continue
-            p, e = primes[i], 0
-            while nn*p**e < n:
+            stk.append((nn, hn, i+1))
+            p, e = primes[i], 2
+            while nn*p**e <= n:
                 stk.append((nn*p**e, hn*h(p,e), i+1))
                 e += 1
     rv = 0
     for ii in powerfulnumberext(n):
-        print(ii)
         rv += ii[1]*spow[n//ii[0]]
         rv %= MOD
-    return rv
+    return rv % MOD
 
 print(S(100, 1))
-#print(sum(S(10**8, i) for i in range(1, 4)) % MOD)
+print(sum(S(10**8, i) for i in range(1, 4)) % MOD)
