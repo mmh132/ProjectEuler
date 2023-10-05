@@ -1,7 +1,7 @@
 from math import isqrt
 from functools import cache as ccc
 import sys
-from util.prime import lucy as lucy
+# from util.prime import lucy as lucy
 sys.setrecursionlimit(10000)
 
 def f(n):
@@ -44,7 +44,7 @@ def f(n):
         del todel
     return out
 
-print(f(10**2))
+print(f(10**10))
 
 def squarefree(n):
     rt = isqrt(n)
@@ -63,10 +63,6 @@ def squarefree(n):
         rv += m[i]*(n//i//i)
     return rv
 
-def ff(n):
-    rt = isqrt(n)
-    rv = lucy(rt)
-    
     
 
 
