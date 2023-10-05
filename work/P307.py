@@ -1,17 +1,16 @@
-from math import log10
-f = [0] + [log10(i) for i in range(1, 1000001)]
-for i in range(1, len(f)): f[i] += f[i-1]
+from math import log, exp
+N, K = 10**7, 20*10**3
+f = [0, 1]
+i = 2
+while len(f) <= N:
+    f.append(f[-1] + log(i))
+    i+=1
+def choose(n,k):
+    return f[n] - f[n-k] - f[k]
 
-def comb(n, a, b, c):
-    return f[n] - f[a] - f[b] - f[c]
-
-def p(k, n):
-    x = 0
-    for c in range(k//2 + 1):
-        b = k-2*c
-        a = n-b-c
-        x += f[k]*comb(n,a,b,c)
-    x -= k*log10(n)
-    return 1-pow(10, x)
-
-print(p(3, 7))
+p = 1
+for x in range(K//2, K+1):
+    power = choose(x, K-x) + choose(N, x) + f[K] - K*log(N)
+    print(power)
+    p -= exp(choose(x, K-x) + choose(N, x) + f[K] - K*log(N))
+print(p)
