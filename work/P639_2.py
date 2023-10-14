@@ -1,6 +1,8 @@
 from math import comb, isqrt
 import time
 from functools import cache as ccc
+import sys
+sys.setrecursionlimit(10000000)
 def FIinc(n):
     i, la = 1,0
     while i <= n:
@@ -18,23 +20,6 @@ def FIdec(n):
 N = 10**8
 MOD = 10**9 + 7
    
-def choose(n, k, mod = 0):
-    rv = 1
-    if k > n//2: k = n-k
-    if not mod:
-        for i in range(n-k+1, n+1):
-            rv *= i
-        for i in range(2, k+1):
-            rv //= k
-    else:
-        for i in range(n-k+1, n+1):
-            rv *= i
-            rv %= mod
-        for i in range(2, k+1):
-            rv *= pow(i, -1, mod)
-            rv %= mod
-    return rv
-
 def S(n, k):
     #brute force the first sqrt n values
     spow = {1: 1}
@@ -55,7 +40,6 @@ def S(n, k):
     print("done2")
     #print(spow)
     #do powerful number sieving
-    stk = [(1,1,0)]
     primes = []
     rt = isqrt(n)
     sieve = [1]*(rt+1)
@@ -67,25 +51,23 @@ def S(n, k):
     for i in range(2, len(sieve)):
         if sieve[i] == 1:
             primes.append(i)
+    print("sievedone")
+    def h(p, e):
+        out = 0
+        if e > 1:
+            out -= (pow(p, k) - 1)*pow(p,k)
+        return 1 if e == 0 else out%MOD
+    def rec(pp, hn, i):
+        if i == len(primes):
+            return hn * spow[n//pp] % MOD
+        rv = rec(pp, hn, i+1)
+        exp, prime = 2, primes[i]
+        while pp*prime**exp <= n:
+            rv += rec(pp*prime**exp, hn*h(prime,exp), i+1)
+            rv %= MOD
+            exp += 1
+        return rv
+    return rec(1,1,0) % MOD
 
-    def powerfulnumberext(n):
-        while stk:
-            c = stk.pop(0)
-            nn, hn, i= c[0], c[1], c[2]
-            if i == len(primes): 
-                yield (nn, hn)
-                continue
-            stk.append((nn, hn, i+1))
-            p, e = primes[i], 2
-            while nn*p**e <= n:
-                stk.append((nn*p**e, hn*(pow(p,k) - 1)*(-pow(p, k)) % MOD, i+1))
-                e += 1
-    rv = 0
-    for ii in powerfulnumberext(n):
-        rv += ii[1]*spow[n//ii[0]]
-        rv %= MOD
-    return rv % MOD
-
-#print(S(100, 1))
-#print(sum(S(10**8, i) for i in range(1, 4)) % MOD)
-print(S(10**12, 50))
+print(S(100, 1))
+print(sum(S(10**12, i) for i in range(1, 4)) % MOD)
