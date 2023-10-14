@@ -14,7 +14,14 @@ def choose(n,k):
     return rv
 
 def magicfunc(n):
-    return max(m(choose(n,k)) for k in range(1, n))
+    old = (0,0)
+    for k in range(1,n):
+        mm = m(choose(n,k))
+        if mm > old[0]:
+            old = (mm, k)
+    return old
 
-for i in range(2,100):
+
+
+for i in range(2,101):
     print(i, magicfunc(i), bin(i))

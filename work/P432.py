@@ -1,42 +1,47 @@
-from math import gcd
-def totient(n):
-    rv = list(range(n+1))
-    for i in range(2, n+1):
-        if rv[i] != i: continue
-        for k in range(i, n+1, i):
-            rv[k]*= i-1
-            rv[k]//= i
-    return rv
-def mobius(n):
-    mob = [1]*(n+1)
-    prime = [1]*(n+1)
-    for i in range(2, n+1):
-        if prime[i]:
-            mob[i] *= -1
-            for j in range(i+i, n+1, i):
-                mob[j]*=-1
-                prime[j] = 0
-            for j in range(i**2, n+1, i**2):
-                mob[j] = 0
-    return mob
+from math import isqrt
 
-tot = totient(1000)
-mu = mobius(1000)
-def s1(n, m):
-    rv = 0
-    for i in range(1, n+1):
-        if gcd(i, m) == 1:
-            rv += tot[i]
-    return rv
+def FIinc(n):
+    i, la = 1,0
+    while i <= n:
+        la = n//(n//i)
+        yield la
+        i = la + 1
+        
+def FIdec(n):
+    i, la = 1,0
+    while i <= n:
+        la = n//(n//i)
+        yield n//la
+        i = la + 1
 
-def s2(n, m):
-    rv = 0
-    for i in range(1, n+1):
-        rv += tot[i]
-    for d in range(2, m+1):
-        if m%d == 0:
-            rv -= mu[d]*s2(n//d, m)
-    return rv
+def fastt(n):
+    L = int(n**(2/3))
+    F = list(range(L+1))
+    for i in range(2, L + 1):
+        if F[i] == i:
+            F[i] -= 1
+            for k in range(i+i, L + 1, i):
+                F[k] //= i
+                F[k] *= (i-1)
+    for i in range(2,len(F)):
+        F[i] += F[i-1]
+    
+    S = [0]*(2*isqrt(n))
+    i = 0
+    for v in FIinc(n):
+        if v < L: S[i] = F[v]
+        else:
+            inn = v*(v+1) >> 1
+            for x in range(1, isqrt(v) + 1):
+                inn -= (F[x] - F[x-1])*(v//x)
+                if x != 1:
+                    inn -= F[v//x]
+            inn += F[isqrt(v)]*isqrt(v)
+            S[i] = inn
+        i+=1
+    while S[-1] == 0: S.pop(-1)
+    return S[-1]
 
-print(s1(100, 21))
-print(s2(100, 21))
+print(fastt(10**12))
+
+
