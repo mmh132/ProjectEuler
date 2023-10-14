@@ -18,6 +18,23 @@ def FIdec(n):
 N = 10**8
 MOD = 10**9 + 7
    
+def choose(n, k, mod = 0):
+    rv = 1
+    if k > n//2: k = n-k
+    if not mod:
+        for i in range(n-k+1, n+1):
+            rv *= i
+        for i in range(2, k+1):
+            rv //= k
+    else:
+        for i in range(n-k+1, n+1):
+            rv *= i
+            rv %= mod
+        for i in range(2, k+1):
+            rv *= pow(i, -1, mod)
+            rv %= mod
+    return rv
+
 def S(n, k):
     #brute force the first sqrt n values
     spow = {1: 1}
@@ -35,6 +52,7 @@ def S(n, k):
                 inn += pow(-1, jj)*pow(ii-jj, k)*comb(i+k-ii+1, i-ii)*comb(k+1, jj)
                 inn %= MOD
         spow[i] = inn
+    print("done2")
     #print(spow)
     #do powerful number sieving
     stk = [(1,1,0)]
@@ -68,5 +86,6 @@ def S(n, k):
         rv %= MOD
     return rv % MOD
 
-print(S(100, 1))
-print(sum(S(10**8, i) for i in range(1, 4)) % MOD)
+#print(S(100, 1))
+#print(sum(S(10**8, i) for i in range(1, 4)) % MOD)
+print(S(10**12, 50))
