@@ -37,4 +37,4 @@ def omega(n):
         rv += (S[n//(i-1)] - S[n//(i)])*i
     
     return rv
-        
+
