@@ -45,5 +45,9 @@ def powerfulnumberext(n, h):
             stk.append((nn*p**e, hn*h(p,e), i+1))
             e += 1
 
-        
+def linearsieve_mult(n, f):
+    c, func, cnt = [1]*(n+1), [1]*(n+1), [1]*(n+1)
+    primes = []
+    for i in range(2, n):
+        if not c[i]: primes.append(i)
         

@@ -59,5 +59,5 @@ def c(n, k):
         x += f(i, k)*comb(n, i)
         x %= mod
     return x
-
-print(c(n, 10)%mod)
+print(R[2])
+#print(c(n, 10)%mod)

@@ -50,7 +50,7 @@ def eval3(n):
 
 print(eval3(10**9))
 
-for i in range(3, 8):
+for i in range(3, 10):
     x = time.time()
-    print(eval3(10**i))
+    print(eval3(10**i), i)
     print(time.time() - x, "seconds")
