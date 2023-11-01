@@ -44,7 +44,7 @@ def f(n):
         del todel
     return out
 
-print(f(10**10))
+print(f(10**8))
 
 def squarefree(n):
     rt = isqrt(n)

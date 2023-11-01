@@ -35,6 +35,7 @@ def S(n, k):
                 inn += pow(-1, jj)*pow(ii-jj, k)*comb(i+k-ii+1, i-ii)*comb(k+1, jj)
                 inn %= MOD
         spow[i] = inn
+    print("done2")
     #print(spow)
     #do powerful number sieving
     stk = [(1,1,0)]
@@ -49,7 +50,7 @@ def S(n, k):
     for i in range(2, len(sieve)):
         if sieve[i] == 1:
             primes.append(i)
-
+    print("done3")
     def powerfulnumberext(n):
         while stk:
             c = stk.pop(0)
@@ -69,4 +70,4 @@ def S(n, k):
     return rv % MOD
 
 print(S(100, 1))
-print(sum(S(10**8, i) for i in range(1, 4)) % MOD)
+print(sum(S(10**12, i) for i in range(1, 4)) % MOD)
