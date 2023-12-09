@@ -67,7 +67,7 @@ def S(n, k):
     for i in range(2, len(sieve)):
         if sieve[i] == 1:
             primes.append(i)
-
+    print("done3")
     def powerfulnumberext(n):
         while stk:
             c = stk.pop(0)
@@ -86,6 +86,11 @@ def S(n, k):
         rv %= MOD
     return rv % MOD
 
+<<<<<<< HEAD
+print(S(100, 1))
+print(sum(S(10**12, i) for i in range(1, 4)) % MOD)
+=======
 #print(S(100, 1))
 #print(sum(S(10**8, i) for i in range(1, 4)) % MOD)
 print(S(10**12, 50))
+>>>>>>> 1b4375745ab7e1d3f650f91a20eab238d5be94d1

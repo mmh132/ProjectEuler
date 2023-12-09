@@ -48,7 +48,7 @@ def eval3(n):
     return at3(n) + n//3
 
 
-#print(eval3(10**9))
+print(eval3(10**9))
 
 for i in range(3, 10):
     x = time.time()

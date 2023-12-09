@@ -39,4 +39,3 @@ def sum_omega(n):
     
     return rv
 
-print(sum_omega(10**11))
