@@ -12,7 +12,8 @@ def FIdec(n):
         la = n//(n//i)
         yield n//la
         i = la + 1
-def omega(n):
+
+def sum_omega(n):
     rv = 0
     #lucy calcs
     S = dict()
@@ -23,7 +24,7 @@ def omega(n):
         for v in FIdec(n):
             if v < p*p: break
             S[v] -= (S[v//p] - S[p-1])
-
+    print("here")
     #small primes
     for i in range(2, isqrt(n) + 1):
         if S[i] == S[i-1]: continue
@@ -33,8 +34,9 @@ def omega(n):
             x *= i
 
     #large primes
-    for i in range(2, isqrt(n) + 1):
-        rv += (S[n//(i-1)] - S[n//(i)])*i
+    for i in range(1, isqrt(n)):
+        rv += (S[n//(i)] - S[n//(i+1)])*(i)
     
     return rv
-        
+
+print(sum_omega(10**11))
