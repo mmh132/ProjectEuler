@@ -1,7 +1,9 @@
-from math import sqrt
+from math import sqrt, gcd
+def add(a,b):
+    rv = (a[0]*b[1] + b[0]*a[1], a[1]*b[1])
+    g = gcd(rv[0],rv[1])
+    return (rv[0]//g, rv[1]//g)
 
-seq = [1,1,1,1,0,0,1,1,1,0,1,1,0,1,0]
-frac = [0,0]
 
 def isprime(n):
     for i in range(2, int(sqrt(n))+1):
@@ -10,16 +12,4 @@ def isprime(n):
 prime = [False, False] + [isprime(i) for i in range(2,501)]
 
 
-def dp(pos, turn, isval):
-    if turn == 15:
-        if isval:
-            frac[0] += 1
-        frac[1] += 1
-    want = seq[turn]
-
-    if prime[pos]:
-        if pos == 1:
-            
-    else:
-
-    
+def dp()

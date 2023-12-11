@@ -13,4 +13,3 @@ def P(n):
     phi = (1+sqrt(5))/2
     rv = pow(1/phi, 2-n)/(pow(2,n) - pow(phi, n)) - pow(-phi, 2-n)/(pow(2,n) - pow(-phi, -n))
     return rv/sqrt(5)
-print(P(3), 9/31)

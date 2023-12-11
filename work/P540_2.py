@@ -27,3 +27,16 @@ def solve(n):
     return rv
     
 print(solve(10**6))
+
+# from math import isqrt
+# def d(n):
+# 	rv = 0
+# 	for i in range(1, isqrt(n) + 1):
+# 		rv += i*(n//i)
+# 		rv += (n//i)*(n//i + 1)//2
+# 	rv -= isqrt(n)*isqrt(n)*(isqrt(n)+1)//2
+# x = int(input())
+# while x:
+# 	y = int(input)
+# 	print(d(y))
+# 	x-=1
