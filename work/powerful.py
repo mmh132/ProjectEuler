@@ -7,3 +7,5 @@ def powerful(n):
     return 1 + sum(sfs[i]*int(sqrt(n/(i*i*i))) for i in range(1,len(sfs)))
 
 print(powerful(10**10))
+
+

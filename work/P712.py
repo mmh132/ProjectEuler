@@ -18,3 +18,9 @@ def s(n):
             rv += omega(i) + omega(j) - 2*omega(gcd(i, j))
     return rv
 print(s(100))
+def somega(n):
+    rv = 0
+    for i in range(1, n+1):
+        rv += omega(i)
+    return rv
+print(somega(100), somega(1000))
