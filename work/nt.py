@@ -60,15 +60,15 @@ def generalconvolve(f,g,F,G,n, mod = 0):
     return rv
 
 stk = [(1,1,0)]
-def powerfulnumbersext(n, h):
+def powerfulnumbersext(n, h, mod):
     primes = seg_sieve(isqrt(n)+1)
     while stk:
         c = stk.pop(0)
         nn, hn, i= c[0], c[1], c[2]
         if i == len(primes): yield (nn, hn); continue
-        p, e = primes[i], 0
+        p, e = primes[i], 2
         while nn*p**e < n:
-            stk.append((nn*p**e, hn*h(p,e), i+1))
+            stk.append((nn*p**e, (hn*h(p,e)) % mod, i+1))
             e += 1
 
 def linearsieve_mult(n, f):

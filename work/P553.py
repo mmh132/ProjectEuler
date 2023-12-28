@@ -60,4 +60,4 @@ def c(n, k):
         x %= mod
     return x
 print(R[2])
-#print(c(n, 10)%mod)
+print(c(n, 10)%mod)

@@ -23,6 +23,7 @@ def t(n):
     @cache
     def dp(n, k):
         if k == 0: return 1 if n == 0 else 0
+        if n < 0: return 0
         rv = 0
         for idx, val in enumerate(pivals):
             if n-idx < 0: break
@@ -31,4 +32,4 @@ def t(n):
         return rv
     return dp(n, n)
 
-print(t(10))
+print(t(10**3))
