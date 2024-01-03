@@ -104,10 +104,8 @@ def F2prefix(n):
 fF0 = F0prefix(N+1)
 fF1 = F1prefix(N+1)
 fF2 = F2prefix(N+1)
-fF0[0] = 0
-fF1[0] = 0
-fF2[0] = 0
 
+print(fF0[18409], fF1[1840], fF2[123])
 def F0(n, m):
     if n == 0: return 0
     return (2*fF0[n]-1) % m
