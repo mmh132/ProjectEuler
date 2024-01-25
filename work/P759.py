@@ -7,5 +7,4 @@ def bf(n):
 for i in range(1, 100):
     print(i, bf(i), bf(i)/i, bin(i))
 
-for i in range(1, 50):
-    print(i, bin(i), i*i, bin(i*i))
+print(sum([bf(i)*bf(i) for i in range(1, 11)]))

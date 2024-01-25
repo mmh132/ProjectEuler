@@ -77,17 +77,12 @@ def e164(N = 20):
     return dp(N, 0, 0) - dp(N-1, 0, 0)
 
 def e169(n=10**25):
-    def dp(n, mp):
-        if 2**(mp+2) < n: return 0
-        if mp == -1: return 0
-        if n == 0: return 1
-        if n < 0: return 0
-        rv = dp(n, mp-1)
-        for i in range(mp + 1):
-            rv += dp(n-2**i, i-1)
-            rv += dp(n-2**(i+1), i-1)
-        return rv
-    return dp(n, int(math.log2(n)) + 2)
+    @cache
+    def dp(n):
+        if n < 2: return 1
+        return dp(n >> 1) + (dp(n >> 1 - 1) if not n&1 else 0)
+    return dp(n)
+        
 
 print(e169())
 

@@ -73,6 +73,7 @@ for x in rpfl:
 
 uniquesols = list(sollist)
 t = uniquesols.pop(0)
+print(len(uniquesols))
 for n in uniquesols:
     t = add(t,n)
 print(t[0] + t[1])
