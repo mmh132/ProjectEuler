@@ -26,7 +26,7 @@ def bf_S(n):
     for i in range(1, n+1):
         for j in range(1, n+1):
             rv += bf_d1(i*j)
-            print(i*j)
+            #print(i*j)
     return rv
 
 def t1(n):
@@ -44,3 +44,18 @@ def t2(n):
     return rv
 
 print(t2(3))
+
+def ds(n):
+    rv = 0
+    for i in range(1, isqrt(n) + 1):
+        rv += (n//i)*i
+        rv += (n//i)*(n//i + 1) // 2
+    return rv - isqrt(n)*isqrt(n)*(isqrt(n) + 1) // 2
+
+
+for i in range(1, 10):
+    print(ds(i)**2, bf_S(i), ds(i)**2 - bf_S(i))
+
+for i in range(2, 15):
+    for j in range(i, 15):
+        print(i, j, bf_d1(i)*bf_d1(j), bf_d1(i*j), bf_d1(i)*bf_d1(j) - bf_d1(i*j))

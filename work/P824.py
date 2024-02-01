@@ -1,4 +1,5 @@
 from functools import cache
+from math import comb
 def bfrow(n, k):
     if k == 0: return 1
     @cache
@@ -14,6 +15,11 @@ def bfrow(n, k):
         return dp(s, n-1, k) + dp(s, n-2, k-1)
     return dp(True, n-2, k-1) + dp(False, n-1, k)
 
+def fastrow(n, k):
+    if k > n//2: return 0
+    return n*comb(n-k, k)//(n-k)
+
+
 def conv(a, b, lim):
     c = [0]*min(len(a) + len(b) - 1, lim)
     for ia, ca in enumerate(a):
@@ -23,7 +29,7 @@ def conv(a, b, lim):
     return c
 
 def bf(n, k):
-    x = [bfrow(n, i) for i in range(k)]
+    x = [fastrow(n, i) for i in range(k)]
     
     print(x)
     pw = n

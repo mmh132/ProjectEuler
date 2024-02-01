@@ -1,28 +1,43 @@
-from math import sqrt
-fibs = [0,1,1]
-while len(fibs) < 25: fibs.append(fibs[-1] + fibs[-2])
-print(fibs)
-
-def isprime(n):
-    for i in range(2, int(sqrt(n)) + 1):
-        if n % i == 0:
-            return False
-    return True
-
-def S(n):
-    pl = [i for i in range(2, n+1) if isprime(i)]
-
-    def rbn(n):
-        if n == 0:
-            return 1
-        if n < 0: 
-            return 0
-        rv = 0
-        for i in pl:
-            if i > n: break
-            rv += i*rbn(n-i)
-        return rv % 10**9
+from functools import cache
+import sys
+sys.setrecursionlimit(100000)
+N, MOD = 24, 10**9
+f = [0,1]
+while len(f) < N+1:
+    f.append(f[-1] + f[-2])
+print(f)
+N2 = f[-1]
     
-    return rbn(n)
+p = [0,0] + [1]*(f[-1]+ 1)
+for i in range(2, len(p)):
+    if p[i]: 
+        for j in range(i+i, len(p), i):
+            p[j] = 0
 
-print(S(8))
+primes = [i for i in range(2, len(p)) if p[i]]
+print(primes)
+
+@cache
+def dp(s, i):
+    if s == 0: return 1
+    if i == len(primes) or primes[i] > s:
+        return 0
+    rv = 0
+    cur_p = primes[i]
+    xx = 1
+    for j in range(s//cur_p+1):
+        rv += xx*dp(s-cur_p*j, i+1)
+        xx = (xx*cur_p) % MOD
+        rv %= MOD
+    return rv
+
+print(dp(5, 0))
+
+currow = [1] + [0]*N2
+newrow = [0]*(N2 + 1)
+for i in range(len(primes)):
+    cur_p = primes[i]
+    xx = 1
+    for j in range(N2//cur_p):
+        for k in range(N2 - cur_p*j):
+            newrow[k] += xx*currow[]

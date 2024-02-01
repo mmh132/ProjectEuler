@@ -1,15 +1,19 @@
 from math import lcm
-def f(set):
-    d = {1:1}
-    for i in set:
-        t = d.copy()
-        for key in d:
-            if lcm(i, key) in t:
-                t[lcm(i, key)] += d[key]
-            else:
-                t[lcm(i, key)] = d[key]
-        d = t.copy()
-    print(d)
-    print(sum(i*d[i] for i in d))
+def f(n):
+    sets = {1: 1}
+    for i in [1,2,4]:
+        ns = sets.copy()
+        for key in sets:
+            nv = lcm(key, i)
+            if nv not in ns: 
+                ns[nv] = 0
+            ns[nv] += sets[key]
+        sets = ns.copy()
+        print(i, sets)
+    rv = 0
+    for key in sets:
+        rv += sets[key]*key 
+        rv %= (10**9 + 7)
+    return rv
 
-print(f([1,2,1,4,1,2]))
+print(f(6))

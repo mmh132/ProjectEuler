@@ -15,7 +15,7 @@ def recbuildsplits(b,w,size,sv):
         rv += recbuildsplits(b-bt, w-wt, size,i)
     memo[(b,w,size,sv)] = rv
     return rv
-b = 40
-w = 60
+b = 10
+w = 20
 print(recbuildsplits(b,w,b+w,0))
 print("--- %s seconds ---" % (time.time() - start_time))

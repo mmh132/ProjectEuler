@@ -1,42 +1,60 @@
-from math import isqrt
-from functools import cache
-import sys
-sys.setrecursionlimit(1000000)
-MOD = 10**9
-def S(n):
-    p = [1]*(n+1)
-    for i in range(2,isqrt(n) + 1):
-        if not p[i]: continue
-        for k in range(i, n+1, i):
-            p[k] = 0
-    primes = [i for i in range(2, n+1) if p[i]]
-    @cache
-    def SS(n, mp):
-        if mp >= len(primes) or primes[mp] > n:
-            return 0
-        rv = 0
-        for exp in range(n//primes[mp]+1):
-            rv += SS(n-primes[mp]*exp, mp+1)*pow(primes[mp], exp, MOD)
-            rv %= MOD
-        return rv
-    return SS(n, 0)
-def fib(n):
-    f1,f2,f3 = 0,0,1
-    n-=1
-    while n:
-        f1 = f2
-        f2 = f3
-        f3 = f1+f2
-        n-=1
-        yield(f3)
-print(S(8))
-# wewant = 0
-# for i in fib(24):
-#     wewant += S(i)
-#     print(i)
-#     wewant %= MOD
-# print(wewant)
+N, MOD = 24, 10**9
+f = [0,1]
+while len(f) < N+1:
+    f.append(f[-1] + f[-2])
+print(f)
     
-    
-    
-    
+p = [0,0] + [1]*(f[-1]+ 1)
+for i in range(2, len(p)):
+    if p[i]: 
+        for j in range(i+i, len(p), i):
+            p[j] = 0
+
+def add(a, b, mod):
+    rv = [0]*(max(len(a), len(b)))
+    for i in range(max(len(a), len(b))):
+        if i < len(a):
+            rv[i] = (rv[i] + a[i]) % mod
+        if i < len(b):
+            rv[i] = (rv[i] + b[i]) % mod
+    return rv
+
+def karatsuba(a, b, n, mod):
+    if len(a) == 1 and len(b) == 1:
+        return [a[0]*b[0]]
+    while len(a) > len(b): b.append(0)
+    while len(b) > len(a): a.append(0)
+
+    m = len(a)//2
+
+    a1, a2 = a[0:m], a[m:n]
+    b1, b2 = b[0:m], b[m:n]
+
+    r1 = karatsuba(a1, b1, n, mod)
+    r4 = karatsuba(a2, b2, n, mod)
+    ap = add(a1, a2, mod)
+    bp = add(b1, b2, mod)
+    s = karatsuba(ap, bp, n, mod)
+    t = add(s, [-x for x in add(r1, r4, mod)], mod)
+    r = add(r1, add([0]*m + t, [0]*(2*m) + r4, mod), mod)
+    while len(r) > n:
+        r.pop(-1)
+    return r
+
+gf = [1]
+for i in range(2, f[-1]):
+    print(i)
+    if p[i]:
+        tomul = [1] + [0]*f[-1]
+        c, e = i, i
+        while e < len(tomul):
+            tomul[e] = c
+            e += i
+            c = (c*i) % MOD
+        gf = karatsuba(gf, tomul, f[-1] + 10, MOD)
+
+tp = 0
+for i in range(2, N+1):
+    print(f[i])
+    tp = (tp + gf[f[i]]) % MOD
+print(tp)

@@ -30,6 +30,7 @@ def fft(coeffs, inv):
         w *= wn
     return new
 
+print(fft(fft([1,2,3,0], 1), 1))
 
 def product(polya, polyb):
     size, rsize = 1, len(polya) + len(polyb) 

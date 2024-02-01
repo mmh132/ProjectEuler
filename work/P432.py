@@ -1,4 +1,11 @@
 from math import isqrt
+from functools import cache
+
+
+
+
+
+
 
 def FIinc(n):
     i, la = 1,0
@@ -14,34 +21,132 @@ def FIdec(n):
         yield n//la
         i = la + 1
 
-def fastt(n):
-    L = int(n**(2/3))
-    F = list(range(L+1))
-    for i in range(2, L + 1):
-        if F[i] == i:
-            F[i] -= 1
-            for k in range(i+i, L + 1, i):
-                F[k] //= i
-                F[k] *= (i-1)
-    for i in range(2,len(F)):
-        F[i] += F[i-1]
-    
-    S = [0]*(2*isqrt(n))
-    i = 0
-    for v in FIinc(n):
-        if v < L: S[i] = F[v]
-        else:
-            inn = v*(v+1) >> 1
-            for x in range(1, isqrt(v) + 1):
-                inn -= (F[x] - F[x-1])*(v//x)
-                if x != 1:
-                    inn -= F[v//x]
-            inn += F[isqrt(v)]*isqrt(v)
-            S[i] = inn
-        i+=1
-    while S[-1] == 0: S.pop(-1)
-    return S[-1]
+N, M, MOD = 10**6, 510510, 10**9
+Y = max(int(N**(2/3)), M)
 
-print(fastt(10**12))
+tot, cmp, primes = [0]*(Y+1), [0]*(Y+1), []
+tot[1] = 1
+for i in range(2, Y+1):
+    if not cmp[i]:
+        primes.append(i)
+        tot[i] = i-1
+    for j in primes:
+        idx = i*j
+        if idx > Y: break
+        cmp[idx] = 1
+        if i % j == 0:
+            tot[idx] = tot[i] * j
+        else:
+            tot[idx] = tot[i] * (j - 1)
+
+for i in range(2, Y+1):
+    tot[i] += tot[i-1]
+
+T = {}
+for i in FIinc(N):
+    if i <= Y:
+        T[i] = tot[i]
+        continue
+    put = i*(i+1)//2
+    for j in range(1, isqrt(i) + 1):
+        put -= (tot[j])*(i//j)
+        put -= T[i//j] if j != 1 else 0
+    put += T[isqrt(i)]*isqrt(i)
+    T[i] = put % MOD
+
+for i in range(Y, 1, -1):
+    tot[i] -= tot[i-1]
+
+def s_bf(p, n):
+    rv = 0
+    for i in range(1, n+1):
+        rv += tot[i*p]
+    return rv
+
+def s_test(p, n):
+    if n < 1: return 0
+    if n == 1: return 1
+    rv = 0
+    for i in range(1, n+1):
+        rv += tot[i]
+    rv *= tot[p]
+    rv += s_test(p, n//p)
+    return rv
+
+
+def s_bf_2(p,q, n):
+    rv = 0
+    for i in range(1, n+1):
+        rv += tot[i*p*q]
+    return rv
+
+def s_test_2(p,q,n):
+    if n < 1: return 0
+    if n == 1: return 1
+    rv = 0
+    for i in range(1, n+1):
+        rv += tot[i]
+    rv *= tot[p*q]
+    rv += tot[q]*s_test(p,n//p)
+    rv += tot[p]*s_test(q,n//q)
+    rv += s_test_2(p, q, n//p//q)
+    return rv
+
+print(s_bf_2(5,7, 100), s_test_2(5,7, 100))
+
+    
+
+@cache
+def d(n):
+    rv = set()
+    for i in range(1, isqrt(n) + 1):
+        if not n%i:
+            rv.add(i)
+            rv.add(n//i)
+    return tuple(rv)
+
+def s(x, n):
+    if n < 1: return 0
+    if n == 1: return tot[x]
+    if x == 1: return T[n]
+    rv = 0
+    for i in d(x):
+        rv += s(i, n//i)*tot[x//i]
+        rv %= MOD
+    return rv
+
+print(s(5*7, 100))
+print(s(510510, 10**6))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
