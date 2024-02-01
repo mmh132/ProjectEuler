@@ -45,16 +45,5 @@ def M(n):
         la = i
     return rv % MOD
 
+print(M(1), M(2))
 print(M(100))
-
-def tots(n):
-    if n == 1:
-        return 1
-    rv = n*(n+1)//2
-    la = 1
-    for i in FIinc(n):
-        if i == la: continue
-        rv -= (i-la)*tots(n//i)
-        la = i
-    return rv
-print(tots(3))

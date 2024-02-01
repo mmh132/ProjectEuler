@@ -13,7 +13,7 @@ def rec(r1, r2, r3, d):
         return rec(r2, r3, 0, d-1)
     
     s = 0
-    while (r1 >> s)&1 == 1:
+    while (r1 >> s)&1:
         s += 1
     rv = 0
     

@@ -86,54 +86,33 @@ def fast_msum(n):
             rv[i] = x
     return rv
 
-
-from math import isqrt
-def FIinc(n):
-    i, la = 1,0
-    while i <= n:
-        la = n//(n//i)
-        yield la
-        i = la + 1
-
-MOD = 998244353
-N = int(input())
-Y = max(int(0.55*N*(2/3)), isqrt(N) + 1)
-primes, cmp, tot = [],[0]*(Y+1),[0]*(Y+1)
-def solve():
-    tot[1] = 1
-    for i in range(2, Y+1):
-        if not cmp[i]:
+def sieve(n):
+    S = 10**4
+    primes, oprimes = [], []
+    rt = isqrt(n)
+    
+    isp = [1]*(rt + 1)
+    for i in range(2, rt + 1):
+        if isp[i]:
             primes.append(i)
-            tot[i] = i-1
-        for j in primes:
-            idx = i*j
-            if idx > Y: break
-            cmp[idx] = True
-            if i%j == 0:
-                tot[idx] = tot[i]*j
-                break
-            else:
-                tot[idx] = tot[i]*(j-1)
+            for k in range(i*i, rt, i):
+                isp[k] = 0
     
-    del primes, cmp
-    
-    for i in range(2, Y+1):
-        tot[i] = (tot[i] + tot[i-1]) % MOD
-    rv = dict()
-    for i in FIinc(N):
-        if i < Y:
-            continue
-        else:
-            x = (i*(i+1)//2 - i) % MOD
-            rt = isqrt(i)
-            for j in range(2, rt+1):
-                x -= rv[i//j] if i//j > Y else tot[i//j]
-                x -= (tot[j] - tot[j - 1])*(i//j)
-                x %= MOD
-            x += (rv[rt] if rt > Y else tot[rt])*isqrt(i)
-            rv[i] = x % MOD
-    print(rv[N])
+    for k in range(n//S):
+        block = [1] * S
+        start = k*S
+        for p in primes:
+            i = (start + p - 1) // p
+            for j in range(max(i, p)*p - start, S, p):
+                block[j] = 0
+        if k == 0:
+            block[0] = 0
+            block[1] = 0
 
-solve()
+        for i in range(S):
+            if start + i > n: break
+            if block[i]:
+                oprimes.append(start + i)
     
-    
+    return primes + oprimes
+
