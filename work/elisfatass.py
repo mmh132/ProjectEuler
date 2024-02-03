@@ -84,5 +84,12 @@ def e169(n=10**25):
     return dp(n)
         
 
-print(e169())
 
+def e301(n=2**30):
+    rv = 0
+    for i in range(1, n+1):
+        if (i^2*i^3*i) == 0:
+            rv += 1
+    return rv
+
+print(e301())

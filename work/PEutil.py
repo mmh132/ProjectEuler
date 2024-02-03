@@ -116,3 +116,72 @@ def sieve(n):
     
     return primes + oprimes
 
+def naivemul(a, b, mod = 0):
+    rv = [0]*(len(a) + len(b) - 1)
+    for i in range(len(a)):
+        for j in range(len(b)):
+            rv[i+j] += a[i]*b[j]
+            if mod:
+                rv[i+j] %= mod
+    return rv
+
+#stolen from https://judge.yosupo.jp/submission/184924
+def berlekampMassey(s,mod=0):
+	C = [1]
+	B = [1]
+	L = 0
+	m = 1
+	b = 1
+	
+	for n in range(len(s)):
+		d = s[n] + sum(C[i] * s[n-i] for i in range(1,L+1))
+		if mod: d %= mod
+		if d == 0:
+			m += 1
+			continue
+		
+		T = C[:]
+		coef = d*pow(b,-1,mod) if mod else d//b
+		nb = [0]*m + [coef*x % mod if mod else coef*x for x in B]
+		C += [0] * (len(nb)-len(C))
+		for i in range(len(nb)):
+			C[i] -= nb[i]
+
+		if 2*L <= n:
+			L = n+1 - L
+			B = T
+			b = d
+			m = 0
+		
+		m += 1
+	
+	ret = [-x for x in C[1:]]
+	if mod: ret = [x%mod for x in ret]
+	return ret
+
+#coefficient c, starting values s, index k
+def linearRec(c, s, k, mod = 0):
+    def mul(a, b):
+        rv = naivemul(a, b, mod)
+        for i in range(len(rv) - 1, n-1, -1):
+            for j in range(n-1, -1, -1):
+                rv[i-j-1] += rv[i]*c[j]
+                if mod: rv[i-j-1] %= mod
+        return rv[:n]
+    
+    n = len(c)
+    assert n <= len(s)
+
+    a = [c[0]] if n == 1 else [0,1]
+    x = [1]
+    while k:
+        if k&1: x = mul(x, a)
+        a = mul(a, a)
+        k//=2
+    x = x[:n] + [0] * (n - len(x))
+
+    rv = 0
+    for i in range(n):
+        rv += x[i]*s[i]
+        if mod: rv %= mod
+    return rv

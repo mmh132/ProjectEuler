@@ -18,4 +18,8 @@ def A(n, k):
         rv %= MOD
     return rv
 
+<<<<<<< Updated upstream
 print(A(N, K))
+=======
+print(A(N, K))
+>>>>>>> Stashed changes
