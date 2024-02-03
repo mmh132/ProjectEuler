@@ -29,7 +29,7 @@ def G(a,b):
     #factor a,b
     f = [3] + fac(a*a) + fac(a**6 + 27*b**2)
     f.sort()
-    
+        
 
 def bs(l, target):
     def recurse(low, high):
@@ -47,4 +47,4 @@ x.sort()
 print(bs(x, 6), x[bs(x, 6)])
             
      
-    
+print(nthrootmod(41, 3, 84))
