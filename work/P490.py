@@ -43,4 +43,5 @@ def berlekampMassey(s,mod=0):
 	ret = [-x for x in C[1:]]
 	if mod: ret = [x%mod for x in ret]
 	return ret
-
+N = 12
+print(berlekampMassey([bf({1}, 1, i)**3 for i in range(N)]))
