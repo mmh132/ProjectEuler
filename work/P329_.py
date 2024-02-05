@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 from fractions import Fraction
 
 p = [1]*(500+1)
@@ -38,3 +39,34 @@ for i in range(1, 501):
     out += t[i]*Fraction(1, w[i])
     
 print(out*Fraction(1/500))
+=======
+from fractions import Fraction as frac
+from functools import cache
+
+want = [1,1,1,1,0,0,1,1,1,0,1,1,0,1,0]
+want.reverse()
+
+isp = [0,0] + [1]*(500 - 1)
+for i in range(2, 500+1):
+    if not isp[i]: continue
+    for k in range(i+i, 500+1, i):
+        isp[k] = 0
+
+@cache
+def dp(p, l):
+    if l == -1:
+        return 1
+    rv = 0
+    if p < 500:
+        rv += (frac(1, 3) if isp[p]==want[l] else frac(1, 6))*dp(p+1, l-1)
+        if p == 1: rv *= 2
+    if p > 1:
+        rv += (frac(1, 3) if isp[p]==want[l] else frac(1, 6))*dp(p-1, l-1)
+        if p == 500: rv *= 2
+    return rv
+
+tp = frac()
+for start in range(1, 501):
+    tp += dp(start, 14)
+print(tp/500)
+>>>>>>> Stashed changes

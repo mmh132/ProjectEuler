@@ -1,12 +1,14 @@
-def sqrep(n):
-    s = 0
-    for a in range(1, n):
-        for b in range(a, n):
-            if a**2 + b**2 == n:
-                s += 1
-                print(a,b)
-            if a **2 + b**2 > n:
-                break
-    return s
+N = 75_000_000
+alex = set()
+stk = [(2,2,3)]
+while stk:
+    a,b,c = stk.pop(0)
+    if 2*c + b - 2*a + 2*c + 2*b - a + 3*c + 2*b - 2*a <= N:
+        stk.append((2*c + b - 2*a, 2*c + 2*b - a, 3*c + 2*b - 2*a))
+    if 2*c + b + 2*a + 2*c + 2*b + a + 3*c + 2*b + 2*a <= N:
+        stk.append((2*c + b + 2*a, 2*c + 2*b + a, 3*c + 2*b + 2*a))
+    if 2*c - 2*b + a + 2*c - b + 2*a + 3*c - 2*b + 2*a <=N:
+        stk.append((2*c - 2*b + a, 2*c - b + 2*a, 3*c - 2*b + 2*a))
+    alex.add((a,b,c))
 
-print(sqrep(5*13*7*7))
+print(len(alex))

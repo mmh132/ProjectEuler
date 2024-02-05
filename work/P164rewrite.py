@@ -1,9 +1,4 @@
-memo = dict()
-def recbuild(diga, digb, iters):
-    if iters == 19: return 1
-    if (diga,digb,iters) in memo: return memo[(diga,digb,iters)]
-    rv = 0
-    for i in range(9-(diga+digb)+1): rv+=recbuild(digb,i,iters+1)
-    memo[(diga,digb,iters)] = rv
-    return rv
-print(sum(recbuild(0,i,0) for i in range(1,10)))
+from functools import cache
+@cache
+def dp(a, b, l): return 1 if l == 0 else sum([dp(b, i, l-1) for i in range(10-a-b)])
+print(dp(0,0,20)-dp(0,0,19))
