@@ -23,4 +23,11 @@ def somega(n):
     for i in range(1, n+1):
         rv += omega(i)
     return rv
-print(somega(100), somega(1000))
+
+def somegagcd(n):
+    rv = 0
+    for i in range(1, n+1):
+        for j in range(1, n+1):
+            rv += omega(gcd(i, j))
+    return rv
+print(somega(100)*100*2 - 2 * somegagcd(100))
