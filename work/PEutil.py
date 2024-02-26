@@ -1,5 +1,30 @@
 from math import isqrt
 
+# sig = [e0, e1, ..., ek]
+# count numbers n <= x where n = p0^e0 * p1^e1 * ... * pk^ek and p0 < p1 < ... < pk
+# primeCounts is array of lucy prime counts up to n
+# primes is list of primes up to √n
+def countSignature(sig: list[int], x: int, primeCounts: dict, primes: list[int]):
+    def rec(i,j,x,rem):
+        if i == len(sig) - 1:
+            w = iroot(x,sig[i])
+            return max(0, primeCounts[w] - j)
+        t = 0
+        for k in range(j,len(primes)):
+            if primes[k]**rem > x: break
+            t += rec(i+1, k+1, x//primes[k]**sig[i], rem-sig[i])
+        return t
+    return rec(0, 0, x, sum(sig))
+
+def iroot(n, i):
+    l, h, m = 1, n, 0
+    while h - l > 1:
+        m = (l+h) // 2
+        h, l = (m, l) if pow(m, i) > n else (h, m)
+    if pow(l+1, i) <= n:
+        l += 1
+    return l
+
 def FIinc(n):
     i, la = 1,0
     while i <= n:

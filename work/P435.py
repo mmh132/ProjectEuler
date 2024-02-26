@@ -31,7 +31,6 @@ def matrixBinaryPower(base, exp, mod):
             rv = matmul(rv, base, mod)
         base = matmul(base,base, mod)
         exp >>= 1
-    
     return rv
 
 def matvecprod(m, v):
