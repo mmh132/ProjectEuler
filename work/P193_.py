@@ -1,4 +1,5 @@
 from math import isqrt
+
 def f(n):
     rt = isqrt(n)
     primes, cmp, mu = [],[0]*(rt+1),[0]*(rt+1)
@@ -16,7 +17,6 @@ def f(n):
                 break
             else:
                 mu[idx] = mu[i]*-1
-    
     rv = 0
     for i in range(1, rt + 1):
         rv += mu[i]*(n//i//i)

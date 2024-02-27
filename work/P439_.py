@@ -11,7 +11,7 @@ def FIinc(n):
 MOD = 10**9
 
 def nc2(n): 
-    return (n*(n+1)//2) % MOD 
+    return n*(n+1)//2 % MOD 
 
 @cache
 def ss(n):
