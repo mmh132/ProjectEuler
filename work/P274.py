@@ -14,3 +14,6 @@ for p in primes:
     if p < 10: continue
     out += dm(p)
 print(out + 6)
+
+#correct sol
+print(sum(pow(10, -1, p) for p in sieve(10**7) if 10%p))

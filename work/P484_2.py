@@ -2,7 +2,7 @@ import sys
 from math import isqrt
 import time
 sys.setrecursionlimit(10000000)
-N = 5*10**15
+N = 5*10**5
 s = time.time()
 
 def sieve(n):
