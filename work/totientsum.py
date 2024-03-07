@@ -46,8 +46,10 @@ def totientsumfast(n):
 
     return T[n]
 
-# print(totientsumfast(10000))
+z = 10**4
 
-# print(totientsumslow(10000))
+print(totientsumfast(z))
 
-# print(pow(2, (10**11 + 1)*(10**11 + 1), 10**8))
+print(totientsumslow(z))
+
+print(pow(2, (10**11 + 1)*(10**11 + 1), 10**8))
