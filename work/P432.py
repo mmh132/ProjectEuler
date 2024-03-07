@@ -111,7 +111,8 @@ def s(x, n):
     if x == 1: return T[n]
     rv = 0
     for i in d(x):
-        rv += s(i, n//i)*tot[x//i]
+        for j in d(n//i):
+            rv += s(i, n//i)*tot[j]
         rv %= MOD
     return rv
 

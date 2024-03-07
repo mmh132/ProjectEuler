@@ -24,10 +24,22 @@ def bf(k):
 
 print(bf(10))
 
-def sol(k):
+MOD = 1001961001
+
+def row(k):
     primes = []
     i = 2
     while len(primes) <= k:
         if isp(i): primes.append(i)
         i += 1
-    
+    dpold = [0] + [-1]*(k-1)
+    dpnew = [0]*k
+    for n in range(primes[k]):
+        for r in range(k):
+            dpnew[r] = max((dpold[(r + i) % k] + primes[i]) % MOD if dpold[(r+i)%k] > -1 else -1 for i in range(k)) % MOD
+        dpold = dpnew.copy()
+        dpnew = [0]*k
+        print(n)
+    return dpold[0]
+
+print(row(7000))

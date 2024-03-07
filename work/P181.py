@@ -24,7 +24,7 @@ def recbuildsplits(b,w, pilsize, step):
             w-=wtake
     memo[remember] = rv
     return rv
-print(recbuildsplits(20,10,1,0))
+print(recbuildsplits(2,2,1,0))
 print("--- %s seconds ---" % (time.time() - start_time))
     
 

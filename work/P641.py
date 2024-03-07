@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 from math import isqrt
 
 def sieve(n):
@@ -31,3 +32,19 @@ def sieve(n):
     return primes + oprimes
 
 print(len(sieve(10**9)))
+=======
+n = 100
+dvs = [0]*(n + 1)
+for i in range(2, n + 1):
+    for j in range(i, n + 1, i):
+        dvs[j] += 1
+        dvs[j] %= 6
+print(dvs)
+ct = 0
+for i in range(1, n + 1):
+    if dvs[i] % 6 == 0:
+        print(i)
+        ct += 1
+print(ct)
+
+>>>>>>> Stashed changes

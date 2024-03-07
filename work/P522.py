@@ -1,19 +1,21 @@
-def run(l):
-    l = [i-1 for i in l]
-    deg = [0]*(len(l))
-    for i in l:
-        deg[i] += 1
-    print(deg)
+N, MOD = 12344321, 135707531
 
-run([4,4,1,5,1])
+f = [1,1]
+for i in range(2, N+1):
+    f.append((f[-1]*i) % MOD)
 
-def pow(n,x, m):
-    rv = 1
-    while x:
-        if x&1:
-            rv = rv*n % m
-        n = n*n % m
-        x >>= 1
-    return rv
+finv = [pow(f[-1], -1, MOD)]
+for k in range(N, 0, -1):
+    finv.append((finv[-1]*k) % MOD)
+finv.reverse()
 
-print(pow(2, 3, 100))
+rv, c = N*(N-1)*pow(N-1-1, N-1, MOD), N
+
+def inv(x):
+    return finv[x]*f[x-1]
+
+for k in range(2, N-1):
+    c = (c*(N-k+1)*inv(k)) % MOD
+    rv = (rv + c*f[k-1]*pow(N-k-1,N-k,MOD)) % MOD
+
+print(rv)
