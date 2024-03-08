@@ -9,7 +9,7 @@ def bf(v, l, t):
             v.remove(i)
     return rv
 
-print([bf({1}, 1, i) for i in range(17)])
+#print([bf({1}, 1, i) for i in range(17)])
 
 def berlekampMassey(s,mod=0):
 	C = [1]
@@ -44,4 +44,6 @@ def berlekampMassey(s,mod=0):
 	if mod: ret = [x%mod for x in ret]
 	return ret
 N = 12
-print(berlekampMassey([bf({1}, 1, i)**3 for i in range(N)]))
+#print(berlekampMassey([bf({1}, 1, i)**3 for i in range(N)]))
+
+
