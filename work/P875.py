@@ -1,5 +1,6 @@
 from itertools import product
 from functools import cache
+from time import time
 @cache
 def q(i):
     mr = [0]*(i)
@@ -63,7 +64,7 @@ def g(p, e):
     return rv % MOD
 
 N = 12345678
-
+t = time()
 func, cnt, isc, primes = [0]*(N + 1), [0]*(N + 1), [0]*(N + 1), []
 func[1] = 1
 for i in range(2, N + 1):
@@ -84,9 +85,9 @@ for i in range(2, N + 1):
             cnt[i*p] = 1
 
 print("done")
-
 out = 0
 for i in range(2, N + 1):
     out += func[i]
     out %= MOD 
 print(out+1)
+print(time() - t)

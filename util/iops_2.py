@@ -17,13 +17,18 @@ def isqrt(n):
 
 def exteuclid(r0, r1):
     flip = False
-    if r0 > r1 : r0, r1 = r1, r0; flip = True
+    if r0 > r1 : 
+        r0, r1 = r1, r0 
+        flip = True
     s0, s1, t0, t1 = 1,0,0,1
     while r1 != 0:
         s0, s1 = s1, s0 - (r0//r1)*s1
         t0, t1 = t1, t0 - (r0//r1)*t1
         r0, r1 = r1, r0%r1
     return (r0, t0, s0) if flip else (r0, s0, t0)
+
+print(exteuclid(555, 155))
+print(-12*555 + 43*155)
 
 def modinv(n, m):
     n %= m

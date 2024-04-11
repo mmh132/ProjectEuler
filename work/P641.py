@@ -1,50 +1,62 @@
-<<<<<<< Updated upstream
 from math import isqrt
 
 def sieve(n):
-    S = 10**5
-    primes, oprimes = [], []
-    rt = isqrt(n)
-    
-    isp = [1]*(rt + 1)
-    for i in range(2, rt + 1):
-        if isp[i]:
-            primes.append(i)
-            for k in range(i*i, rt, i):
-                isp[k] = 0
-    
-    for k in range(n//S):
-        block = [1] * S
-        start = k*S
-        for p in primes:
-            i = (start + p - 1) // p
-            for j in range(max(i, p)*p - start, S, p):
-                block[j] = 0
-        if k == 0:
-            block[0] = 0
-            block[1] = 0
+	n = int(n)
+	S = 10**5
 
-        for i in range(S):
-            if start + i > n: break
-            if block[i]:
-                oprimes.append(start + i)
+	primes = []
+	nsqrt = isqrt(n)
+	is_prime = [1] * (nsqrt+2)
+	for i in range(2,nsqrt+1):
+		if is_prime[i]:
+			primes += [i]
+			for j in range(i*i,nsqrt+1,i):
+				is_prime[j] = 0
+
+	result = []
+	block = [0] * S
+	for k in range(n//S+1):
+		block[:] = [1]*S
+		start = k * S
+		for p in primes:
+			start_idx = (start + p - 1) // p
+			j = max(start_idx, p) * p - start
+			while j < S:
+				block[j] = 0
+				j += p
+		
+		if k == 0:
+			block[0] = block[1] = 0
+		for i in range(S):
+			if start + i > n:
+				break
+			if block[i]:
+				result += [start+i]
+
+	return result
+
+N = 10**8
+primes = sieve(int(N**(0.25)))
+print(primes)
+
+def dp(r, i, l):
+    if i >= len(primes) or primes[i] > N//l:
+        if not r:
+            print(l)
+        return 1 if not r else 0
+    rv = dp(r, i + 1, l)
+    p = primes[i]
+    pp = p
+    i = 1
+    while pp <= N//l:
+        if i % 6 == 4:
+            rv += dp((r + 1) % 2, i + 1, l * pp)
+        if i % 6 == 0:
+            rv += dp(r, i + 1, l * pp)
+        pp*=p
+        i+=1
+    return rv
+
+print(dp(0, 0, 1))
     
-    return primes + oprimes
 
-print(len(sieve(10**9)))
-=======
-n = 100
-dvs = [0]*(n + 1)
-for i in range(2, n + 1):
-    for j in range(i, n + 1, i):
-        dvs[j] += 1
-        dvs[j] %= 6
-print(dvs)
-ct = 0
-for i in range(1, n + 1):
-    if dvs[i] % 6 == 0:
-        print(i)
-        ct += 1
-print(ct)
-
->>>>>>> Stashed changes
