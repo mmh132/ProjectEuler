@@ -64,7 +64,7 @@ def g(p, e):
     return rv % MOD
 
 N = 12345678
-t = time()
+
 func, cnt, isc, primes = [0]*(N + 1), [0]*(N + 1), [0]*(N + 1), []
 func[1] = 1
 for i in range(2, N + 1):
@@ -90,4 +90,4 @@ for i in range(2, N + 1):
     out += func[i]
     out %= MOD 
 print(out+1)
-print(time() - t)
+

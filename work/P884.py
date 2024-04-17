@@ -1,7 +1,7 @@
 from functools import cache
 
 # 0 1 2 3 4 5 6 7 8 9 10
-# 0 0 1 2 3 4 5 6 0 1 2
+# 0 0 1 2 3 4 5 6 0 1 20
 
 #subtract 1 from 1->7, subtract 8 from 8 -> 10
 @cache
