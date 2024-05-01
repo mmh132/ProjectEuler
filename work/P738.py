@@ -1,17 +1,20 @@
-from functools import cache
+from math import log2
+def partitions(n, k):
+    if k == 1:
+        yield [1]*n
+        return
+    for c in range(n//k + 1):
+        for p in partitions(n - c*k, k - 1):
+            yield [k]*c + p
 
-@cache
-def d(n, k):
-    if k == 0:
-        return 1
-    rv = 0
-    for i in range(1, n+1):
-        if n % i == 0:
-            rv += d(i, k-1)
-    return rv
+N = 10**1
+# find values of the multiplicative function
+f = [0] * (int(log2(N)) + 1)
 
-tp = 0
-for i in range(1, 11):
-    for j in range(1, 11):
-        tp += d(i, j)
-print(tp)
+for i in range(1,len(f)):
+    val = 0
+    for p in partitions(i, i):
+        val += N - len(p)
+    f[i] = val
+
+print(f)
