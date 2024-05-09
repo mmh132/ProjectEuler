@@ -1,4 +1,4 @@
-uyfrom math import factorial
+from math import factorial
 from functools import cache
 
 N = 60
