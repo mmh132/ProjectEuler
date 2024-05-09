@@ -56,6 +56,7 @@ def orconvolve(a, b):
                 b[j] %= mod
 
     c = [(a[i]*b[i] % mod) for i in range(1 << n)]
+    
     for i in range(n-1, -1, -1):
         for j in range((1 << n) - 1, -1, -1):
             if (j >> i) & 1:
