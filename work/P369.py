@@ -29,6 +29,8 @@ def valid(m1, m2, m3, m4):
     return False
 
 def dp(m1, m2, m3, m4, l):
-    
+    for i in range(1, 1 << 4):
+        dp(m1 ^ (i >> 0)&1)
+
 
 

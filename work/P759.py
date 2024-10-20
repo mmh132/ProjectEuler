@@ -9,10 +9,3 @@ for i in range(1, 100):
 
 print(sum([bf(i)*bf(i) for i in range(1, 11)]))
 
-#ways to end at k in n moves
-def f(n, k):
-    if n == 0:
-        return 1 if k == 0 else 0
-    return f(n-1, k-1) + f(n-1, k-2) + f(n-1, k-3)
-
-print(f(6, 6))

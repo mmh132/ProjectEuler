@@ -24,8 +24,7 @@ def w(a, b, c):
         B = (tr+1)//2
         #we have al a's to place in A holes
         # same for b's
-        # then for c's we have tr + 2 transition holes
-        # as well as al a-holes, and bl b-holes
+        # then for c's we have holes for each transition, and then 
         rv += comb(a - 1, A - 1)*comb(b - 1, B - 1)*comb(c - 2*tr + a + b, a + b)
         A = (tr+1)//2 
         B = (tr+1)//2 + (1 if not tr&1 else 0)
