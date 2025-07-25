@@ -8,4 +8,4 @@ def g(n):
             rv += g(i)
     return rv
 
-print(g(48))
+print(g(120))
